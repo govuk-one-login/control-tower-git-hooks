@@ -1,0 +1,6 @@
+-   id: accelerator-validator
+    name: sanity check accelerator config
+    description: Checks accelerator config files for common errors
+    entry: pre_commit_hooks/accelerator-validator.sh
+    language: script
+    stages: [commit, push, manual]
