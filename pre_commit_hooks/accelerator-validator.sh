@@ -99,8 +99,6 @@ function extractAccountAndEmail {
     fi
     
   done < accounts-config.yaml
-
-  # echo "${accountsAndEmails[@]}"
 }
 
 function checkForDupeEmails {
@@ -127,7 +125,6 @@ function validateEmailAddresses {
   echo Validating length of email addresses.  Email addresses can have a max length of $maxEmailLength.
 
   for i in ${!accountsAndEmails[@]}; do
-    # echo ${accountsAndEmails[$i]}
     email=$(echo ${accountsAndEmails[$i]} | sed 's/^.*email://;s/\/organizationalUnit:.*//' ) # Remove everything before 'email:' from the entry
     emailLength=$(echo -n $email | wc -c)
     if [ $emailLength -gt $maxEmailLength ]; then
@@ -166,7 +163,6 @@ function validateAccount {
   echo Checking the validity of the account name.  The account name cannot include a space
 
   for i in ${!accountsAndEmails[@]}; do
-    # echo ${accountsAndEmails[$i]}
     account=$(echo ${accountsAndEmails[$i]} | sed 's/^.*name://;s/\/email:.*//' ) # Remove everything before 'email:' from the entry
     wordCount=$(echo -n $account | wc -w)
     if [ $wordCount -ne 1 ]; then
