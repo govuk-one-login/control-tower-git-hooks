@@ -62,7 +62,7 @@ function evaluateMaxError {
   case "$maxError" in 
     none)
       echo No issues detected in the config
-      exit 2
+      exit 0
       ;;
     warn)
       echo Issues were detected in the config, please see output from this script
