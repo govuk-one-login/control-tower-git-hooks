@@ -24,7 +24,7 @@ jobs:
         id: test01
         working-directory: tests/pre-commit-hooks/accelerator-validator/01
         run: | 
-          bats test01.bat
+          bats test01.bats
 
       - name: Check if email address too long
         id: test02
