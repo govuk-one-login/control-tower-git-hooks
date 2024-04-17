@@ -17,7 +17,6 @@ jobs:
         id: test01
         working-directory: tests/pre-commit-hooks/accelerator-validator/01
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -26,7 +25,6 @@ jobs:
         id: test02
         working-directory: tests/pre-commit-hooks/accelerator-validator/02
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -35,7 +33,6 @@ jobs:
         id: test03
         working-directory: tests/pre-commit-hooks/accelerator-validator/03
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -44,7 +41,6 @@ jobs:
         id: test04
         working-directory: tests/pre-commit-hooks/accelerator-validator/04
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -53,7 +49,6 @@ jobs:
         id: test05
         working-directory: tests/pre-commit-hooks/accelerator-validator/05
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -62,7 +57,6 @@ jobs:
         id: test06
         working-directory: tests/pre-commit-hooks/accelerator-validator/06
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -71,7 +65,6 @@ jobs:
         id: test07
         working-directory: tests/pre-commit-hooks/accelerator-validator/07
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -80,7 +73,6 @@ jobs:
         id: test08
         working-directory: tests/pre-commit-hooks/accelerator-validator/08
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -89,7 +81,6 @@ jobs:
         id: test09
         working-directory: tests/pre-commit-hooks/accelerator-validator/09
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -98,7 +89,6 @@ jobs:
         id: test10
         working-directory: tests/pre-commit-hooks/accelerator-validator/10
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
         continue-on-error: true
@@ -107,7 +97,6 @@ jobs:
         id: test11
         working-directory: tests/pre-commit-hooks/accelerator-validator/11
         run: | 
-          pwd
           ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
 
