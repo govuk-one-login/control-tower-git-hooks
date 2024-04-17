@@ -1,0 +1,36 @@
+customizations:
+  cloudFormationStacks:
+    - deploymentTargets:
+        accounts:
+          - di-account-1
+        organizationalUnits:
+          - Workloads/OU01
+          - Workloads/OU02
+      description: Template
+      name: CTDynatraceServiceDiscoveryReadOnly
+      runOrder: 1
+      template: cloudformation/cfn01.yaml
+      terminationProtection: true
+    - deploymentTargets:
+        accounts:
+          - di-account-1
+        organizationalUnits:
+          - Workloads/OU01
+          - Workloads/OU02
+      description: Template
+      name: CTDynatraceServiceScanNonProdReadOnly
+      runOrder: 2
+      template: cloudformation/cfn02.yaml
+      terminationProtection: true
+    - deploymentTargets:
+        accounts:
+          - di-account-2
+        organizationalUnits:
+          - Workloads/OU01
+          - Workloads/OU02
+      description: Template
+      name: CTDynatraceServiceScanProdReadOnly
+      runOrder: 3
+      template: cloudformation/cfn03.yaml
+      terminationProtection: true
+      

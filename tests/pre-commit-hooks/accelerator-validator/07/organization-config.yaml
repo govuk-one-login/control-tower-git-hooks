@@ -1,0 +1,6 @@
+enable: true
+organizationalUnits:
+  - name: Workloads
+  - name: Workloads/OU01
+  - name: Workloads/OU02
+  - name: suspended
