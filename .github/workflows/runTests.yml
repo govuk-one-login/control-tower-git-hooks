@@ -20,5 +20,6 @@ jobs:
       - name: Check for duplicate email addresses
         working-directory: tests/pre-commit-hooks/accelerator-validator/01
         run: | 
-          pre_commit_hooks/accelerator-validator.sh
+          pwd
+          ../../../../pre_commit_hooks/accelerator-validator.sh
           echo $?
