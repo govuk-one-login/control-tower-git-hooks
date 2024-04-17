@@ -343,5 +343,6 @@ fi
 
 evaluateMaxError
 
-rm -f $tmpOutFile1
+rm -f $tmpOutFile1 
 rm -f $tmpOutFile2
+exit 2
