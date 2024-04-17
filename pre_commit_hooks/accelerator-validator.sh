@@ -32,7 +32,7 @@ clear='\033[0m'
 
 ######
 #
-# Functions
+# Functions 
 #
 ######
 
