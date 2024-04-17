@@ -12,15 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+        
+      - run: npm install -g bats
 
       - name: Check for duplicate email addresses
         id: test01
         working-directory: tests/pre-commit-hooks/accelerator-validator/01
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test01.bat
 
       - name: Check if email address too long
         id: test02
@@ -102,5 +106,5 @@ jobs:
           echo $?
 
       - name: Check step results
-        if: steps.test01.outputs.exit_status == 2 || steps.test02.outputs.exit_status == 2 || steps.test03.outputs.exit_status == 2 || steps.test04.outputs.exit_status == 2 || steps.test05.outputs.exit_status == 2 || steps.test06.outputs.exit_status == 2 || steps.test07.outputs.exit_status == 2 || steps.test08.outputs.exit_status == 2 || steps.test09.outputs.exit_status == 2 || steps.test10.outputs.exit_status == 2
+        if: steps.test01.outputs.exit_status == 0 || steps.test02.outputs.exit_status == 2 || steps.test03.outputs.exit_status == 2 || steps.test04.outputs.exit_status == 2 || steps.test05.outputs.exit_status == 2 || steps.test06.outputs.exit_status == 2 || steps.test07.outputs.exit_status == 2 || steps.test08.outputs.exit_status == 2 || steps.test09.outputs.exit_status == 2 || steps.test10.outputs.exit_status == 2
         run: exit 0
