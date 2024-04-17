@@ -336,11 +336,12 @@ if [ -f "accounts-config.yaml" ] && [ -f "customizations-config.yaml" ] && [ -f 
   checkWorkloadOuDynatraceTrusts
 
   validateDynatraceStack
-
-  evaluateMaxError
 else
   echo Cannot find the accounts-config.yaml, organization-config.yaml or customizations-config.yaml files, please make sure you run this script from the directory that contains those files
+  setMaxError critical
 fi
+
+evaluateMaxError
 
 rm -f $tmpOutFile1
 rm -f $tmpOutFile2
