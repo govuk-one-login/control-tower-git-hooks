@@ -62,7 +62,7 @@ function evaluateMaxError {
   case "$maxError" in 
     none)
       echo No issues detected in the config
-      exit 0
+      exit 2
       ;;
     warn)
       echo Issues were detected in the config, please see output from this script
@@ -341,8 +341,7 @@ else
   setMaxError critical
 fi
 
-evaluateMaxError
-
 rm -f $tmpOutFile1 
 rm -f $tmpOutFile2
-exit 2
+
+evaluateMaxError
