@@ -146,7 +146,7 @@ function checkForSuspendedAccounts {
   # Any accounts in the suspended OU should not be present in the accounts-config.yaml file
   for i in ${!accountsAndEmails[@]}; do
     ou=$(echo ${accountsAndEmails[$i]} | sed 's/^.*organizationalUnit: //' ) # Remove everything before 'organizationalUnit:' from the entry
-    account=$(echo ${accountsAndEmails[$i]} | sed 's/email:.*//' )
+    account=$(echo ${accountsAndEmails[$i]} | sed 's/\/email:.*//' | cut -d' ' -f2- )
     if [ "$ou" == 'suspended' ]; then
       echo -e "${red}Error${clear} - The account $account is defined in the suspended OU, this is invalid"
       setMaxError critical
@@ -166,7 +166,7 @@ function validateAccount {
     account=$(echo ${accountsAndEmails[$i]} | sed 's/^.*name://;s/\/email:.*//' ) # Remove everything before 'email:' from the entry
     wordCount=$(echo -n $account | wc -w)
     if [ $wordCount -ne 1 ]; then
-      echo -e "${red}Error${clear} - The account "$account" contains $wordCount words, this is invalid.  Account names must only contain one word."
+      echo -e ${red}Error${clear} - The account $account contains $wordCount words, this is invalid.  Account names must only contain one word.
       setMaxError warn
     fi
   done
@@ -185,7 +185,7 @@ function validateOU {
   # Any accounts in the suspended OU should not be present in the accounts-config.yaml file
   for i in ${!accountsAndEmails[@]}; do
     ou=$(echo ${accountsAndEmails[$i]} | sed 's/^.*organizationalUnit: //' ) # Remove everything before 'organizationalUnit:' from the entry
-    account=$(echo ${accountsAndEmails[$i]} | sed 's/\/email:.*//' )
+    account=$(echo ${accountsAndEmails[$i]} | sed 's/\/email:.*//' | cut -d' ' -f2- )
 
     if [ "$ou" != "Root" ]; then # The Root OU is not defined in the orgainization-config.yaml file so do not check 
       grep -Fqx "$ou" $tmpOutFile1
@@ -228,7 +228,7 @@ function checkForUnderscoreInAccountName {
   for i in ${!accountsAndEmails[@]}; do
     account=$(echo ${accountsAndEmails[$i]} | sed 's/^.*name://;s/\/email:.*//') # Remove everything before 'name:' from the entry
     if [[ "$account" =~ "_" ]]; then
-      echo -e "${red}Error${clear} - The account "$account" contains an underscore, which is invalid. Account names cannot contain an underscore."
+      echo -e ${red}Error${clear} - The account $account contains an underscore, which is invalid. Account names cannot contain an underscore.
       setMaxError critical
     fi
   done
@@ -268,7 +268,7 @@ function checkWorkloadOuDynatraceTrusts {
     account=$(echo ${accountsAndEmails[$i]} | sed 's/^.*name://;s/\/email:.*//') # Remove everything before 'name:' from the entry
 
     if [[ "$ou" =~ "Workloads" ]]; then
-      grep -q $account $tmpOutFile2
+      grep -q "$account" $tmpOutFile2
       if [ $? -ne 0 ]; then
         echo -e "${red}Error${clear} - $account does not have 'CTDynatraceServiceScanNonProdReadOnly' or 'CTDynatraceServiceScanProdReadOnly' applied, please update customizations-config.yaml and add the account to the list"
         setMaxError critical
