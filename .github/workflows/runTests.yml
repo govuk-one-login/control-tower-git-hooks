@@ -42,46 +42,46 @@ jobs:
         id: test04
         working-directory: tests/pre-commit-hooks/accelerator-validator/04
         run: | 
-          bats test01.bats
+          bats test04.bats
 
       - name: Check if OU in accounts-config.yaml is in organizations-config.yaml
         id: test05
         working-directory: tests/pre-commit-hooks/accelerator-validator/05
         run: | 
-          bats test01.bats
+          bats test05.bats
 
       - name: Check if account has valid prefix
         id: test06
         working-directory: tests/pre-commit-hooks/accelerator-validator/06
         run: | 
-          bats test01.bats
+          bats test06.bats
 
       - name: Check if account name contains an underscore
         id: test07
         working-directory: tests/pre-commit-hooks/accelerator-validator/07
         run: | 
-          bats test01.bats
+          bats test07.bats
 
       - name: Check if service discovery dynatrace trust is in place
         id: test08
         working-directory: tests/pre-commit-hooks/accelerator-validator/08
         run: | 
-          bats test01.bats
+          bats test08.bats
 
       - name: Check if dynatrace prod/non-prod trust is in place
         id: test09
         working-directory: tests/pre-commit-hooks/accelerator-validator/09
         run: | 
-          bats test01.bats
+          bats test09.bats
 
       - name: Check if config files are missing
         id: test10
         working-directory: tests/pre-commit-hooks/accelerator-validator/10
         run: | 
-          bats test01.bats
+          bats test10.bats
 
       - name: Check valid config
         id: test11
         working-directory: tests/pre-commit-hooks/accelerator-validator/11
         run: | 
-          bats test01.bats
+          bats test11.bats
