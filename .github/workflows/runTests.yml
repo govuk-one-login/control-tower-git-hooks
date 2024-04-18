@@ -12,95 +12,76 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+        
+      - run: npm install -g bats
 
       - name: Check for duplicate email addresses
         id: test01
         working-directory: tests/pre-commit-hooks/accelerator-validator/01
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test01.bats
 
       - name: Check if email address too long
         id: test02
         working-directory: tests/pre-commit-hooks/accelerator-validator/02
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test02.bats
 
       - name: Check if account in suspended OU
         id: test03
         working-directory: tests/pre-commit-hooks/accelerator-validator/03
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test03.bats
 
       - name: Check if account name contains spaces
         id: test04
         working-directory: tests/pre-commit-hooks/accelerator-validator/04
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test04.bats
 
       - name: Check if OU in accounts-config.yaml is in organizations-config.yaml
         id: test05
         working-directory: tests/pre-commit-hooks/accelerator-validator/05
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test05.bats
 
       - name: Check if account has valid prefix
         id: test06
         working-directory: tests/pre-commit-hooks/accelerator-validator/06
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test06.bats
 
       - name: Check if account name contains an underscore
         id: test07
         working-directory: tests/pre-commit-hooks/accelerator-validator/07
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test07.bats
 
       - name: Check if service discovery dynatrace trust is in place
         id: test08
         working-directory: tests/pre-commit-hooks/accelerator-validator/08
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test08.bats
 
       - name: Check if dynatrace prod/non-prod trust is in place
         id: test09
         working-directory: tests/pre-commit-hooks/accelerator-validator/09
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test09.bats
 
       - name: Check if config files are missing
         id: test10
         working-directory: tests/pre-commit-hooks/accelerator-validator/10
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-        continue-on-error: true
+          bats test10.bats
 
       - name: Check valid config
         id: test11
         working-directory: tests/pre-commit-hooks/accelerator-validator/11
         run: | 
-          ../../../../pre_commit_hooks/accelerator-validator.sh
-          echo $?
-
-      - name: Check step results
-        if: steps.test01.outputs.exit_status == 2 || steps.test02.outputs.exit_status == 2 || steps.test03.outputs.exit_status == 2 || steps.test04.outputs.exit_status == 2 || steps.test05.outputs.exit_status == 2 || steps.test06.outputs.exit_status == 2 || steps.test07.outputs.exit_status == 2 || steps.test08.outputs.exit_status == 2 || steps.test09.outputs.exit_status == 2 || steps.test10.outputs.exit_status == 2
-        run: exit 0
+          bats test11.bats
