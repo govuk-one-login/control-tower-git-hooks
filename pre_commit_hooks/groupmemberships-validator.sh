@@ -25,8 +25,8 @@ cat /dev/null > $userGroupCombo
 # Read all group and member ids from the groupmemberships file
 while read -r one; do
   read -r two
-  # The first line is normally the group and the second line the user, but just in case they're in a different sequence let's check
 
+  # The first line is normally the group and the second line the user, but just in case they're in a different sequence let's check
   group=""
   user=""
 
@@ -38,13 +38,17 @@ while read -r one; do
     user=$(echo $one | cut -d'"' -f2)
   fi
 
+  # Record the user and group combination for later comparison
   echo ${group}.${user} >> $userGroupCombo
 
 done <<< "$(grep -E 'group_id|member_id' $groupmemberships)"
 
+# Count the number of user and group combinations from the groupmemberships file
 rawUserGroupComboCount=$(cat $userGroupCombo | wc -l)
+# Count the unique number of user and group combinations from the groupmemberships file
 uniqueUserGroupComboCount=$(cat $userGroupCombo | sort -u | wc -l)
 
+# Compare the above two counts, if there are dupes the counts will be different
 if [ $rawUserGroupComboCount != $uniqueUserGroupComboCount ]; then
   echo There are duplicate entries in the groupmemberships.tf file, see below.  Please fix.
   sort $userGroupCombo | uniq -d | sed 's/\./\n/' 
