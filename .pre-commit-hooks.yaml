@@ -4,3 +4,9 @@
     entry: pre_commit_hooks/accelerator-validator.sh
     language: script
     stages: [commit, push, manual]
+-   id: groupmemberships-validator
+    name: sanity check groupmemberships.tf file
+    description: Checks groupmemberships.tf for duplicate entries
+    entry: pre_commit_hooks/groupmemberships-validator.sh
+    language: script
+    stages: [commit, push, manual]
