@@ -20,68 +20,75 @@ jobs:
         
       - run: npm install -g bats
 
-      - name: Check for duplicate email addresses
+      - name: accelerator-validator - Check for duplicate email addresses
         id: test01
         working-directory: tests/pre-commit-hooks/accelerator-validator/01
         run: | 
           bats test01.bats
 
-      - name: Check if email address too long
+      - name: accelerator-validator - Check if email address too long
         id: test02
         working-directory: tests/pre-commit-hooks/accelerator-validator/02
         run: | 
           bats test02.bats
 
-      - name: Check if account in suspended OU
+      - name: accelerator-validator - Check if account in suspended OU
         id: test03
         working-directory: tests/pre-commit-hooks/accelerator-validator/03
         run: | 
           bats test03.bats
 
-      - name: Check if account name contains spaces
+      - name: accelerator-validator - Check if account name contains spaces
         id: test04
         working-directory: tests/pre-commit-hooks/accelerator-validator/04
         run: | 
           bats test04.bats
 
-      - name: Check if OU in accounts-config.yaml is in organizations-config.yaml
+      - name: accelerator-validator - Check if OU in accounts-config.yaml is in organizations-config.yaml
         id: test05
         working-directory: tests/pre-commit-hooks/accelerator-validator/05
         run: | 
           bats test05.bats
 
-      - name: Check if account has valid prefix
+      - name: accelerator-validator - Check if account has valid prefix
         id: test06
         working-directory: tests/pre-commit-hooks/accelerator-validator/06
         run: | 
           bats test06.bats
 
-      - name: Check if account name contains an underscore
+      - name: accelerator-validator - Check if account name contains an underscore
         id: test07
         working-directory: tests/pre-commit-hooks/accelerator-validator/07
         run: | 
           bats test07.bats
 
-      - name: Check if service discovery dynatrace trust is in place
+      - name: accelerator-validator - Check if service discovery dynatrace trust is in place
         id: test08
         working-directory: tests/pre-commit-hooks/accelerator-validator/08
         run: | 
           bats test08.bats
 
-      - name: Check if dynatrace prod/non-prod trust is in place
+      - name: accelerator-validator - Check if dynatrace prod/non-prod trust is in place
         id: test09
         working-directory: tests/pre-commit-hooks/accelerator-validator/09
         run: | 
           bats test09.bats
 
-      - name: Check if config files are missing
+      - name: accelerator-validator - Check if config files are missing
         id: test10
         working-directory: tests/pre-commit-hooks/accelerator-validator/10
         run: | 
           bats test10.bats
 
-      - name: Check valid config
+      - name: accelerator-validator - Check valid config
         id: test11
         working-directory: tests/pre-commit-hooks/accelerator-validator/11
         run: | 
           bats test11.bats
+
+      - name: groupmemberships-validator - Check valid config
+        id: tests
+        working-directory: tests/pre-commit-hooks/groupmemberships-validator
+        run: | 
+          bats tests.bats
+  
