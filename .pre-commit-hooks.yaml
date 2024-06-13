@@ -10,3 +10,9 @@
     entry: pre_commit_hooks/groupmemberships-validator.sh
     language: script
     stages: [commit, push, manual]
+-   id: permissionsets-validator
+    name: sanity check permissionsets.tf file
+    description: Checks permissionsets.tf for common errors
+    entry: pre_commit_hooks/permissionsets-validator.sh
+    language: script
+    stages: [commit, push, manual]
