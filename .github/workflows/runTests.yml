@@ -92,3 +92,9 @@ jobs:
         run: | 
           bats tests.bats
   
+      - name: permissionset-validator - Check valid config
+        id: test-permissionsets
+        working-directory: tests/pre-commit-hooks/permissionset-validator
+        run: | 
+          bats tests.bats
+  
