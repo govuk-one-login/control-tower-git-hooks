@@ -238,49 +238,6 @@ function checkForUnderscoreInAccountName {
 
 }
 
-function checkWorkloadOuDynatraceTrusts {
-  echo For any accounts in Workloads OU they need to have the either the CTDynatraceServiceScanNonProdReadOnly or applied CTDynatraceServiceScanProdReadOnly
-
-  # This seems too complicated, we need to extract the accounts that have either CTDynatraceServiceScanNonProdReadOnly or CTDynatraceServiceScanProdReadOnly
-  # applied.
-
-  # Find from 'deploymentTargets' to 'CTDynatraceServiceScanNonProdReadOnly'.  Once 'CTDynatraceServiceScanNonProdReadOnly' has been found stop
-  # So we'll end up with lots of 'deploymentTargets' found and the last 'CTDynatraceServiceScanNonProdReadOnly'
-  awk '/CTDynatraceServiceScanNonProdReadOnly/{exit} f; /deploymentTargets/{f=1}' customizations-config.yaml > $tmpOutFile1
-
-  # Now find the line number of the last occurance of 'deploymentTargets'
-  lineNum=$(grep -n deploymentTargets $tmpOutFile1 | tail -1 | cut -d":" -f1)
-
-  # Now use sed to print from the line number found earlier to the end of the file.  This will be the list of accounts to have 'CTDynatraceServiceScanNonProdReadOnly' deployed
-  sed -n "$lineNum,\$p" $tmpOutFile1 | sed '/\:/d' > $tmpOutFile2
-  
-  # Find from 'deploymentTargets' to 'CTDynatraceServiceScanProdReadOnly'.  Once 'CTDynatraceServiceScanProdReadOnly' has been found stop
-  awk '/CTDynatraceServiceScanProdReadOnly/{exit} f; /deploymentTargets/{f=1}' customizations-config.yaml > $tmpOutFile1
-
-  # Now find the line number of the last occurance of 'deploymentTargets'
-  lineNum=$(grep -n deploymentTargets $tmpOutFile1 | tail -1 | cut -d":" -f1)
-
-  # Now use sed to print from the line number found earlier to the end of the file.  This will be the list of accounts to have 'CTDynatraceServiceScanNonProdReadOnly' deployed
-  sed -n "$lineNum,\$p" $tmpOutFile1 | sed '/\:/d' >> $tmpOutFile2
-  
-  for i in ${!accountsAndEmails[@]}; do
-    ou=$(echo ${accountsAndEmails[$i]} | sed 's/^.*organizationalUnit: //' ) # Remove everything before 'organizationalUnit:' from the entry
-    account=$(echo ${accountsAndEmails[$i]} | sed 's/^.*name://;s/\/email:.*//') # Remove everything before 'name:' from the entry
-
-    if [[ "$ou" =~ "Workloads" ]]; then
-      grep -q "$account" $tmpOutFile2
-      if [ $? -ne 0 ]; then
-        echo -e "${red}Error${clear} - $account does not have 'CTDynatraceServiceScanNonProdReadOnly' or 'CTDynatraceServiceScanProdReadOnly' applied, please update customizations-config.yaml and add the account to the list"
-        setMaxError critical
-      fi
-    fi
-  done
-
-  echo Check complete
-  echo -
-
-}
-
 function validateDynatraceStack {
 
   echo Checking that each of the Workloads child and Infrastructure/DNS OUs in organization-config.yaml is included in the list of OUs in CTDynatraceServiceDiscoveryReadOnly
@@ -332,8 +289,6 @@ if [ -f "accounts-config.yaml" ] && [ -f "customizations-config.yaml" ] && [ -f 
   validateAccountPrefix
 
   checkForUnderscoreInAccountName
-
-  checkWorkloadOuDynatraceTrusts
 
   validateDynatraceStack
 else
