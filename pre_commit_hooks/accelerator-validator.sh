@@ -167,7 +167,7 @@ function validateAccount {
     wordCount=$(echo -n $account | wc -w)
     if [ $wordCount -ne 1 ]; then
       echo -e ${red}Error${clear} - The account $account contains $wordCount words, this is invalid.  Account names must only contain one word.
-      setMaxError warn
+      setMaxError critical
     fi
   done
 
