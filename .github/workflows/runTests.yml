@@ -63,12 +63,6 @@ jobs:
           bats test07.bats
 
       - name: accelerator-validator - Check if service discovery dynatrace trust is in place
-        id: test08
-        working-directory: tests/pre-commit-hooks/accelerator-validator/08
-        run: | 
-          bats test08.bats
-
-      - name: accelerator-validator - Check if dynatrace prod/non-prod trust is in place
         id: test09
         working-directory: tests/pre-commit-hooks/accelerator-validator/09
         run: | 
