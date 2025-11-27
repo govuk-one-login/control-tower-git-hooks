@@ -238,36 +238,6 @@ function checkForUnderscoreInAccountName {
 
 }
 
-function validateDynatraceStack {
-
-  echo Checking that each of the Workloads child and Infrastructure/DNS OUs in organization-config.yaml is included in the list of OUs in CTDynatraceServiceDiscoveryReadOnly
-
-  # Find everything in the customisation file from deploymentTargets up until the stack name CTDynatraceServiceDiscoveryReadOnly
-  awk '/CTDynatraceServiceDiscoveryReadOnly/{exit} f; /deploymentTargets/{f=1}' customizations-config.yaml > $tmpOutFile1
-
-  # Now find the line number of the last occurance of 'organizationalUnits'
-  lineNum=$(grep -n organizationalUnits $tmpOutFile1 | tail -1 | cut -d":" -f1)
-
-  # Now use sed to print from the line number found earlier to the end of the file.  This will be the list of accounts to have 'CTDynatraceServiceScanNonProdReadOnly' deployed
-  sed -n "$lineNum,\$p" $tmpOutFile1 | sed '/\:/d' | awk -F'- ' '{ print $2 }' | sort > $tmpOutFile2
-
-  # Get all child OUs of the Workloads OUs in organization-config.yaml
-  sed '1,/organizationalUnits:/d;/serviceControlPolicies:/,$d' organization-config.yaml | grep ' - name: ' | grep -E 'Workloads|Infrastructure/DNS' | sed 's/^.*- name: //;s/[[:blank:]]*$//' | grep -v "^Workloads$" | sort > $tmpOutFile1
-
-  # Compare the two lists of OUs, they should be identical
-  diff $tmpOutFile1 $tmpOutFile2
-
-  # If the list isn't identical then Houston, we have a problem
-  if [ $? -ne 0 ]; then
-    echo -e "${red}Error${clear} - This test has failed, please see the output from diff above.  Check that all Workloads child OUs are deployment targets of the CTDynatraceServiceDiscoveryReadOnly stack in customizations-config.yaml"
-    setMaxError critical
-  fi 
-
-  echo Check complete
-  echo -
-
-}
-
 ######
 #
 # Main code
