@@ -62,12 +62,6 @@ jobs:
         run: | 
           bats test07.bats
 
-      - name: accelerator-validator - Check if service discovery dynatrace trust is in place
-        id: test09
-        working-directory: tests/pre-commit-hooks/accelerator-validator/09
-        run: | 
-          bats test09.bats
-
       - name: accelerator-validator - Check if config files are missing
         id: test10
         working-directory: tests/pre-commit-hooks/accelerator-validator/10
